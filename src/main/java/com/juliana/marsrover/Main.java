@@ -33,12 +33,19 @@ public class Main {
 		
 		} while (!validDirection);
 
-		System.out.println("Type a line with the rover commands:");
-		String commands = scan.next();	
-
 		Plateau plateau = new Plateau(x, y);
 		Direction d = Direction.valueOf(direction);
 		Position position = new Position(endx, endy, d);
+		if (!plateau.insideBoundaries(endx, endy)){
+			System.out.println("Coordinates are outside plateau boundaries, redefined to 0,0");
+			position.setX(0);
+			position.setY(0);
+		}		
+		
+		System.out.println("Type a line with the rover commands:");
+		String commands = scan.next();	
+
+
 		MarsRover r = new MarsRover(plateau, position);
 		r.run(commands);
 		System.out.println(r.getPosition().toString());
